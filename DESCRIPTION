@@ -8,4 +8,6 @@ Description: An implementation of the two-stage limited
     information maximumum likelihood estimator for spatial autoregressive
     Poisson models proposed by Lambert et al. (2010).
 License: MIT + file LICENSE
+Depends:
+    spdep
 LazyData: TRUE
