@@ -3,7 +3,7 @@
 \docType{data}
 \name{columbus_crime}
 \alias{columbus_crime}
-\title{sppois: A package for estimating spatial poisson regressions.}
+\title{Crime Rates in Columbus}
 \format{A data frame with 49 rows and 3 variables:
 \describe{
   \item{crime_i}{Indexed crime rate.}
@@ -18,12 +18,6 @@ Anselin, Luc. 1988. Spatial econometrics: methods and models.
 columbus_crime
 }
 \description{
-The spppois package provides functions for estimating and summarizing output
-from spatial autoregressive Poisson count models. The primary
-estimation fuction is \link{sarpoisson}
-Crime Rates in Columbus
-}
-\details{
 A datset containing information on crime rates, home values, and median
 incomes for neighborhoods in Columbus, Ohio.
 }
