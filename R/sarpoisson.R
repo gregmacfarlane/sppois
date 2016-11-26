@@ -11,8 +11,7 @@
 #' @param data An optional data frame containing the variables in the model.  By
 #'   default the variables are taken from the environment which the function  is
 #'   called.
-#' @param listw A \code{\link[spdep]{listw}} object created for example by
-#'   \code{\link[spdep]{nb2listw}}
+#' @param listw A listw object created for example by \code{\link[spdep]{nb2listw}}
 #' @param method The method to be used for fitting the regression equation.
 #'   Defaults to "liml", a limited-information maximum likelihood. Other
 #'   options are "fiml" (full-information maximum likelihood), "model.matrix" to
@@ -46,6 +45,9 @@
 #'
 #' @seealso \code{\link[spdep]{lagsarlm}}
 #'
+#' @importFrom spdep listw2mat
+#' @importFrom stats .getXlevels contrasts model.matrix model.response nlm
+#'
 #' @export
 #'
 sarpoisson <- function(formula, data = list(), listw = NULL,  method = "liml",
@@ -63,17 +65,17 @@ sarpoisson <- function(formula, data = list(), listw = NULL,  method = "liml",
   if (method == "model.frame") return(mf)
 
   mt <- attr(mf, "terms")
-  y <- model.response(mf, "numeric")
-  X <- model.matrix(mt, mf, contrasts)
+  y <- stats::model.response(mf, "numeric")
+  X <- stats::model.matrix(mt, mf, stats::contrasts)
 
 
   # Estimate model coefficients -----------
   if (method == "fiml"){  # full-information maximum-likelihood
-    W <- listw2mat(listw)
+    W <- spdep::listw2mat(listw)
     if(det(W) == 0) # non-invertible matrices have determinant of 0
       warning("Matrix listw is near-singular, results may not be reliable.")
 
-    nlm_results <- nlm(
+    nlm_results <- stats::nlm(
       f = sarpois.filoglik,
       p = c(0, rep(0, ncol(X))),
       y = y, X = X, W = W,
@@ -81,23 +83,29 @@ sarpoisson <- function(formula, data = list(), listw = NULL,  method = "liml",
     )
     names(nlm_results$estimate) <- c("rho", attr(X, "dimnames")[2][[1]])
 
+    A <- Matrix::Diagonal(nrow(X)) - nlm_results$estimate[1] * W   # (I - rho W)
+    A1 <- solve(A)
+    axb <- A1 %*% X %*% nlm_results$estimate[-1]
+    nlm_results$fitted.values = exp(axb)
+    nlm_results$residuals = y - nlm_results$fitted.values
+
   } else if (method == "non-spatial"){
-    nlm_results <- nlm(
+    nlm_results <- stats::nlm(
       f = pois.loglik,
       p = rep(0, ncol(X)),
       y = y, X = X,
       hessian = TRUE, ...
     )
     names(nlm_results$estimate) <- attr(X, "dimnames")[2][[1]]
+    nlm_results$fitted.values = exp(X %*% nlm_results$estimate)
+    nlm_results$residuals = y - nlm_results$fitted.values
 
   }
 
   # Assemble output class and return ---------
-  z <- set_sarpoisson(nlm_results, mf)
+  z <- set_sarpoisson(nlm_results, mf, mt)
 
   z$method <- method
-  z$contrasts <- attr(X, "contrasts")
-  z$xlevels <- .getXlevels(mt, mf)
   z$call <- cl
   z$terms <- mt
   return(z)
@@ -108,33 +116,26 @@ sarpoisson <- function(formula, data = list(), listw = NULL,  method = "liml",
 #' @param object An object containing the estimation results from an NLM
 #'   optimization routine.
 #' @param mf The model frame.
+#' @param mt The model terms.
 #'
 #' @return An object of class `c("glm", "lm")`
 #'
-set_sarpoisson <- function(object, mf){
+set_sarpoisson <- function(object, mf, mt){
 
   y <- model.response(mf, "numeric")
   X <- model.matrix(mt, mf, contrasts)
 
-  if(names(object$estimate)[1] != "rho"){
-    fitted.values = exp(X %*% object$estimate)
-    residuals = y - exp(X %*% object$estimate)
-  } else {
-    A <- Matrix::Diagonal(nrow(X)) - object$estimate[1] * W   # (I - rho W)
-    A1 <- solve(A)
-    axb <- A1 %*% X %*% object$estimate[-1]
-    fitted.values = exp(axb)
-    residuals = y - exp(axb)
-  }
   me <- list(
     coefficients = object$estimate,
-    fitted.values = fitted.values,
-    residuals = residuals,
+    fitted.values = object$fitted.values,
+    residuals = object$residuals,
     df.residual = length(y) - length(object$estimate),
     df.null = length(y) - 1,
     logLik = -1 * object$minimum,
     rank = length(object$estimate),
     call = mf,
+    contrasts = attr(X, "contrasts"),
+    levels = stats::.getXlevels(mt, mf),
     nlm_results = object,
     na.action = attr(mf, "na.action"),
     information.matrix = solve(object$hessian)

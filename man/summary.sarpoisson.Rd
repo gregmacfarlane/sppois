@@ -4,11 +4,11 @@
 \alias{summary.sarpoisson}
 \title{Summarizing SAR Poisson Models}
 \usage{
-summary.sarpoisson(object)
+\method{summary}{sarpoisson}(object)
 }
 \arguments{
 \item{object}{An object of class `sarpoisson`, usually a result of a call to
-\link{`lagsarpoisson`}}
+\link{sarpoisson}}
 }
 \description{
 `summary` method for class "`sarpoisson`"

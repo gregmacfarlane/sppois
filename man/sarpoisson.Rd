@@ -14,8 +14,7 @@ model specification are given for \code{\link[stats]{lm}}}
 default the variables are taken from the environment which the function  is
 called.}
 
-\item{listw}{A \code{\link[spdep]{listw}} object created for example by
-\code{\link[spdep]{nb2listw}}}
+\item{listw}{A listw object created for example by \code{\link[spdep]{nb2listw}}}
 
 \item{method}{The method to be used for fitting the regression equation.
 Defaults to "liml", a limited-information maximum likelihood. Other

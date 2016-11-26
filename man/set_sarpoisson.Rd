@@ -4,13 +4,15 @@
 \alias{set_sarpoisson}
 \title{Build a glm class object from an NLM poisson fit}
 \usage{
-set_sarpoisson(object, mf)
+set_sarpoisson(object, mf, mt)
 }
 \arguments{
 \item{object}{An object containing the estimation results from an NLM
 optimization routine.}
 
 \item{mf}{The model frame.}
+
+\item{mt}{The model terms.}
 }
 \value{
 An object of class `c("glm", "lm")`

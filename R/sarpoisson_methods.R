@@ -3,14 +3,13 @@
 #' `summary` method for class "`sarpoisson`"
 #'
 #' @param object An object of class `sarpoisson`, usually a result of a call to
-#'   \link{`lagsarpoisson`}
-#'
-#' @export
+#'   \link{sarpoisson}
+#' @method summary sarpoisson
 #'
 summary.sarpoisson <- function(object){
 
   df.r <- object$df.residual
-  aliased <- is.na(coef(object))
+  aliased <- is.na(stats::coef(object))
   p <- object$rank
   if (p > 0) {
     p1 <- 1L:p
@@ -24,7 +23,7 @@ summary.sarpoisson <- function(object){
     dn <- c("Estimate", "Std. Error")
 
     if (df.r > 0) {
-      pvalue <- 2 * pt(-abs(tvalue), df.r)
+      pvalue <- 2 * stats::pt(-abs(tvalue), df.r)
       coef.table <- cbind(coef.p, s.err, tvalue, pvalue)
       dimnames(coef.table) <- list(names(coef.p), c(dn, "t value", "Pr(>|t|)"))
     } else {
@@ -42,7 +41,7 @@ summary.sarpoisson <- function(object){
                   "contrasts", "df.residual", "null.deviance", "df.null",
                   "iter", "na.action", "logLik"), names(object), 0L)
   ans <- c(object[keep],  list(
-    deviance.resid = residuals(object, type = "deviance"),
+    deviance.resid = stats::residuals(object, type = "deviance"),
     coefficients = coef.table, aliased = aliased,
     df = c(object$rank, df.r),
     cov.unscaled = covmat.unscaled, cov.scaled = covmat))
@@ -56,7 +55,6 @@ summary.sarpoisson <- function(object){
   return(ans)
 
 }
-
 
 print.summary.sarpoisson <- function(x, digits = 3){
 
@@ -72,12 +70,12 @@ print.summary.sarpoisson <- function(x, digits = 3){
   cat("\nResiduals:\n")
   resid <- x$object$residuals
   nam <- c("Min", "1Q", "Median", "3Q", "Max")
-  print(structure(quantile(resid), names = nam))
+  print(structure(stats::quantile(resid), names = nam))
 
   cat("\nCoefficients:", x$coeftitle, "\n")
   # coefficient table
-  printCoefmat(x$coefficients, signif.stars = signif.stars, digits = digits,
-               na.print = "NA")
+  stats::printCoefmat(x$coefficients, signif.stars = TRUE,
+                      digits = digits, na.print = "NA")
 
   cat("\nLog likelihood:", x$logLik, "for", x$object$method, "model\n")
 
