@@ -7,6 +7,9 @@
 sarpoisson(formula, data = list(), listw = NULL, method = "liml", ...)
 }
 \arguments{
+\item{formula}{A symbolic description of the model to be fit. The details of
+model specification are given for \code{\link[stats]{lm}}}
+
 \item{data}{An optional data frame containing the variables in the model.  By
 default the variables are taken from the environment which the function  is
 called.}
@@ -21,9 +24,6 @@ return a model matrix, and "non-spatial", which will execute a non-spatial
 Poisson regression (identical to \code{\link[stats]{glm}}).}
 
 \item{...}{Further arguments passed to \link[stats]{nlm}.}
-
-\item{A}{symbolic description of the model to be fit. The details of
-model specification are given for \code{\link[stats]{lm}}}
 }
 \value{
 A list of class `sarpoisson` containing the following components:
@@ -51,9 +51,9 @@ for Poisson regression models. The estimator was described by
 Brown, and Florax (2010)}.
 }
 \examples{
-  sarpois(crime_i ~ income + home_value, data = columbus_crime,
+  sarpoisson(crime_i ~ income + home_value, data = columbus_crime,
           method = "non-spatial")
-  sarpois(crime_i ~ income + home_value, data = columbus_crime,
+  sarpoisson(crime_i ~ income + home_value, data = columbus_crime,
           listw = columbus_neighbors, method = "fiml")
 
 }

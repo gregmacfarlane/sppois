@@ -5,9 +5,8 @@
 #' @param object An object of class `sarpoisson`, usually a result of a call to
 #'   \link{`lagsarpoisson`}
 #'
-#'
-#'
 #' @export
+#'
 summary.sarpoisson <- function(object){
 
   df.r <- object$df.residual
@@ -59,10 +58,6 @@ summary.sarpoisson <- function(object){
 }
 
 
-#' Summarizing SAR Poisson Models
-#'
-#' @return Prints the summary
-#'
 print.summary.sarpoisson <- function(x, digits = 3){
 
   # funtion call
@@ -87,5 +82,15 @@ print.summary.sarpoisson <- function(x, digits = 3){
   cat("\nLog likelihood:", x$logLik, "for", x$object$method, "model\n")
 
   cat("\n")
+
+}
+
+print.sarpoisson <- function(x){
+  # funtion call
+  cat("\nCall:\n")
+  cat(deparse(x$call))
+
+  cat("\n\nCoefficients:\n")
+  print(x$coefficients)
 
 }

@@ -6,7 +6,7 @@
 #' \href{http://dx.doi.org/10.1016/j.regsciurbeco.2010.04.001}{Lambert,
 #' Brown, and Florax (2010)}.
 #'
-#' @param  A symbolic description of the model to be fit. The details of
+#' @param formula A symbolic description of the model to be fit. The details of
 #'   model specification are given for \code{\link[stats]{lm}}
 #' @param data An optional data frame containing the variables in the model.  By
 #'   default the variables are taken from the environment which the function  is
@@ -39,9 +39,9 @@
 #' }
 #'
 #' @examples
-#'   sarpois(crime_i ~ income + home_value, data = columbus_crime,
+#'   sarpoisson(crime_i ~ income + home_value, data = columbus_crime,
 #'           method = "non-spatial")
-#'   sarpois(crime_i ~ income + home_value, data = columbus_crime,
+#'   sarpoisson(crime_i ~ income + home_value, data = columbus_crime,
 #'           listw = columbus_neighbors, method = "fiml")
 #'
 #' @seealso \code{\link[spdep]{lagsarlm}}
@@ -71,10 +71,10 @@ sarpoisson <- function(formula, data = list(), listw = NULL,  method = "liml",
   if (method == "fiml"){  # full-information maximum-likelihood
     W <- listw2mat(listw)
     if(det(W) == 0) # non-invertible matrices have determinant of 0
-      Warning("Matrix listw is near-singular, results may not be reliable.")
+      warning("Matrix listw is near-singular, results may not be reliable.")
 
     nlm_results <- nlm(
-      f = lagsarpois.filoglik,
+      f = sarpois.filoglik,
       p = c(0, rep(0, ncol(X))),
       y = y, X = X, W = W,
       hessian = TRUE, ...
@@ -109,8 +109,6 @@ sarpoisson <- function(formula, data = list(), listw = NULL,  method = "liml",
 #'   optimization routine.
 #' @param mf The model frame.
 #'
-#'
-#'
 #' @return An object of class `c("glm", "lm")`
 #'
 set_sarpoisson <- function(object, mf){
@@ -132,7 +130,6 @@ set_sarpoisson <- function(object, mf){
     information.matrix = solve(object$hessian)
   )
   # Collect output
-  class(me) <- append(class(me), "lm")
   class(me) <- append(class(me), "sarpoisson")
 
   return(me)
@@ -152,7 +149,7 @@ set_sarpoisson <- function(object, mf){
 #'
 #' @importFrom Matrix Diagonal
 #'
-lagsarpois.filoglik <- function(p, y, X, W){
+sarpois.filoglik <- function(p, y, X, W){
   rho <- p[1]
   beta <- p[-1]
 
