@@ -116,10 +116,20 @@ set_sarpoisson <- function(object, mf){
   y <- model.response(mf, "numeric")
   X <- model.matrix(mt, mf, contrasts)
 
+  if(names(object$estimate)[1] != "rho"){
+    fitted.values = exp(X %*% object$estimate)
+    residuals = y - exp(X %*% object$estimate)
+  } else {
+    A <- Matrix::Diagonal(nrow(X)) - object$estimate[1] * W   # (I - rho W)
+    A1 <- solve(A)
+    axb <- A1 %*% X %*% object$estimate[-1]
+    fitted.values = exp(axb)
+    residuals = y - exp(axb)
+  }
   me <- list(
     coefficients = object$estimate,
-    fitted.values = exp(X %*% object$estimate),
-    residuals = y - exp(X %*% object$estimate),
+    fitted.values = fitted.values,
+    residuals = residuals,
     df.residual = length(y) - length(object$estimate),
     df.null = length(y) - 1,
     logLik = -1 * object$minimum,
