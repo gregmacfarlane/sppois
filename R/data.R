@@ -1,3 +1,36 @@
+#' Crime Rates in Columbus
+#'
+#' A datset containing information on crime rates, home values, and median
+#' incomes for neighborhoods in Columbus, Ohio.
+#'
+#' @format A data frame with 49 rows and 3 variables:
+#' \describe{
+#'   \item{crime_i}{Indexed crime rate.}
+#'   \item{income}{household income in thousands.}
+#'   \item{home_value}{Home values in thousands.}
+#' }
+#'
+#' @note This data is obtained using \link[spdep]{oldcol}
+#'
+#'
+#' @source Anselin, Luc. 1988. Spatial econometrics: methods and models.
+#'   Dordrecht: Kluwer Academic, Table 12.1 p. 189.
+#'
+"columbus_crime"
+
+
+#' Neighbor relationships for zones in Columbus
+#'
+#' A listw containing spatial weights for the observations in \link{columbus_crime}.
+#'
+#' @note This data is obtained using \link[spdep]{oldcol}
+
+#' @source Anselin, Luc. 1988. Spatial econometrics: methods and models.
+#'   Dordrecht: Kluwer Academic, Table 12.1 p. 189.
+#'
+"columbus_neighbors"
+
+
 #' County-level firm births in the United States
 #'
 #' A dataset containing information on firm birth in multiple sectors by
