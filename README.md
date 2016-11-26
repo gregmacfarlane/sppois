@@ -1,4 +1,5 @@
 # sppois
+[![Travis-CI Build Status](https://travis-ci.org/gregmacfarlane/sppois.svg?branch=master)](https://travis-ci.org/gregmacfarlane/sppois)
 
 An implementation of the two-stage limited information maximumum likelihood
 estimator for spatial autoregressive Poisson models proposed by [Lambert et al.
