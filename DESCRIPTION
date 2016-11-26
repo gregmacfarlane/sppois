@@ -1,7 +1,7 @@
 Package: sppois
 Type: Package
 Title: Spatial Autoregressive Poisson Modeling
-Version: 0.0.0.9001
+Version: 0.0.1
 Authors@R: person("Greg", "Macfarlane", email = "gregmacfarlane@gmail.com",
   role = c("aut", "cre"))
 Description: An implementation of the two-stage limited
