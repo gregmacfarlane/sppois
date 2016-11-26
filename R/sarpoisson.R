@@ -17,12 +17,32 @@
 #'   Defaults to "liml", a limited-information maximum likelihood. Other
 #'   options are "fiml" (full-information maximum likelihood), "model.matrix" to
 #'   return a model matrix, and "non-spatial", which will execute a non-spatial
-#'   Poisson regression (identical to \code{\link[stats](glm)}).
+#'   Poisson regression (identical to \code{\link[stats]{glm}}).
+#' @param ... Further arguments passed to \link[stats]{nlm}.
 #'
-#' @return An object of class `sarpoisson`.
-#' @example R/examples/builddata_example.R
+#' @return A list of class `sarpoisson` containing the following components:
+#' \describe{
+#'   \item{coefficients}{The estimated coefficient values.}
+#'   \item{fitted.values}{The estimated mean of the poisson distribution.}
+#'   \item{residuals}{Difference between estimated mean and observed value.}
+#'   \item{df.residuals}{Degrees of freedom remaining in residuals.}
+#'   \item{df.null}{Degrees of freedom in the null model.}
+#'   \item{logLik}{Numerical log likelihood.}
+#'   \item{rank}{Rank of the model.}
+#'   \item{call}{Model estimation call.}
+#'   \item{nlm_results}{Complete results from \link[stats]{nlm}.}
+#'   \item{information.matrix}{Fischer information matrix, obtained as inverse
+#'   of Hessian.}
+#'   \item{method}{The method used in maximum likelihood estimation.}
+#'   \item{xlevels}{}
+#'   \item{terms}{Terms of the model frame}
+#' }
+#'
 #' @examples
-#'   sarpois(counts ~ outcome + treatment, data = dd, listw = W)
+#'   sarpois(crime_i ~ income + home_value, data = columbus_crime,
+#'           method = "non-spatial")
+#'   sarpois(crime_i ~ income + home_value, data = columbus_crime,
+#'           listw = columbus_neighbors, method = "fiml")
 #'
 #' @seealso \code{\link[spdep]{lagsarlm}}
 #'
@@ -124,8 +144,9 @@ set_sarpoisson <- function(object, mf){
 #'
 #' @param p Parameter vector consisting of rho, and any betas.
 #' @param y n-length vector of dependent values
-#' @param X $n\times p$ matrix of independent covariates, created by model.matrix
-#' @param W A CsparseMatrix of the weights objects.
+#' @param X \eqn{n \times p} matrix of independent covariates, created by
+#'   model.matrix
+#' @param W A CsparseMatrix representation of the weights objects.
 #'
 #' @return A numeric calculation of the model likelihood.
 #'
@@ -148,7 +169,7 @@ lagsarpois.filoglik <- function(p, y, X, W){
 #'
 #' @param p Parameter vector consisting of betas.
 #' @param y n-length vector of dependent values
-#' @param X $n\times p$ matrix of independent covariates, created by model.matrix
+#' @param X \eqn{n \times p} matrix of independent covariates, created by model.matrix
 #'
 #' @return A numeric calculation of the model likelihood.
 #'
