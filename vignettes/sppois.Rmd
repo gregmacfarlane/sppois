@@ -25,7 +25,7 @@ crime_sppois <- sarpoisson(crime_i ~ income + home_value, data = columbus_crime,
 ```
 
 ```{r}
-summary.sarpoisson(crime_sppois)
+summary(crime_sppois)
 ```
 
 
