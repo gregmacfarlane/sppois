@@ -1,0 +1,31 @@
+---
+title: "sppois"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{sppois}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The `sppois` package exists to provide spatial autoregressive 
+```{r setup}
+library(sppois)
+```
+
+```{r crime-sppois}
+crime_sppois <- sarpoisson(crime_i ~ income + home_value, data = columbus_crime,
+                           listw = columbus_neighbors, method = "fiml") 
+```
+
+```{r}
+summary(crime_sppois)
+```
+
+

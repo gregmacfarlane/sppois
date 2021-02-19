@@ -13,3 +13,7 @@ RoxygenNote: 5.0.1.9000
 LazyData: true
 Imports: Matrix,
     spdep
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
