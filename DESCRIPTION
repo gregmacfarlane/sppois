@@ -11,12 +11,16 @@ License: MIT + file LICENSE
 Depends: R (>= 4.1.0)
 RoxygenNote: 7.1.1
 LazyData: true
-Imports: Matrix,
+Imports: 
+    magrittr,
+    generics,
+    Matrix,
     spdep
 Suggests: 
     knitr,
     rmarkdown,
     markdown
 VignetteBuilder: knitr
+Encoding: UTF-8
 URL: https://github.com/gregmacfarlane/sppois
 BugReports: https://github.com/gregmacfarlane/sppois/issues
