@@ -1,0 +1,54 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# sppois
+
+<!-- badges: start -->
+[![Build Status](https://travis-ci.com/gregmacfarlane/sppois.svg?branch=master)](https://travis-ci.com/gregmacfarlane/sppois)
+<!-- badges: end -->
+
+The goal of sppois is to implement the two stage estimator for spatial autoregressive Poisson models proposed by [Lambert et al. (2010)](http://dx.doi.org/10.1016/j.regsciurbeco.2010.04.001)
+
+> This package does not currently implement the Lambert methods. Contributions welcome.
+
+## Installation
+
+sppois is not on CRAN. When it is, you can install the released version of sppois from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("sppois")
+```
+
+For now, you can install the development version from
+[GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("gregmacfarlane/sppois")
+```
+## Example
+
+The package allows users to estimate a full-information maximum likelihood 
+estimation of spatially-autogressive poisson count models.
+
+```{r example}
+library(sppois)
+crime_pois   <- sarpoisson(crime_i ~ income + home_value, data = columbus_crime,
+                           listw = columbus_neighbors, method = "non-spatial") 
+crime_sppois <- sarpoisson(crime_i ~ income + home_value, data = columbus_crime,
+                           listw = columbus_neighbors, method = "fiml") 
+summary(crime_sppois)
+```
+
