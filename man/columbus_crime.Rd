@@ -4,12 +4,14 @@
 \name{columbus_crime}
 \alias{columbus_crime}
 \title{Crime Rates in Columbus}
-\format{A data frame with 49 rows and 3 variables:
+\format{
+A data frame with 49 rows and 3 variables:
 \describe{
   \item{crime_i}{Indexed crime rate.}
   \item{income}{household income in thousands.}
   \item{home_value}{Home values in thousands.}
-}}
+}
+}
 \source{
 Anselin, Luc. 1988. Spatial econometrics: methods and models.
   Dordrecht: Kluwer Academic, Table 12.1 p. 189.
@@ -25,4 +27,3 @@ incomes for neighborhoods in Columbus, Ohio.
 This data is obtained using \link[spdep]{oldcol}
 }
 \keyword{datasets}
-

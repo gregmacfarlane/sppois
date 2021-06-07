@@ -3,11 +3,9 @@
 \docType{package}
 \name{sppois}
 \alias{sppois}
-\alias{sppois-package}
 \title{sppois: A package for estimating spatial poisson regressions.}
 \description{
 The spppois package provides functions for estimating and summarizing output
 from spatial autoregressive Poisson count models. The primary
 estimation fuction is \link{sarpoisson}
 }
-

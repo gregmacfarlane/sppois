@@ -4,7 +4,9 @@
 \name{wqueen}
 \alias{wqueen}
 \title{Queen-style county adjacency matrix}
-\format{An object of class \code{dgCMatrix} with 3078 rows and 3078 columns.}
+\format{
+An object of class \code{dgCMatrix} with 3078 rows and 3078 columns.
+}
 \usage{
 wqueen
 }
@@ -12,4 +14,3 @@ wqueen
 A \code{CsparseMatrix} representation of county contiguity in the United States.
 }
 \keyword{datasets}
-

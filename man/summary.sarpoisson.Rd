@@ -13,4 +13,3 @@
 \description{
 `summary` method for class "`sarpoisson`"
 }
-

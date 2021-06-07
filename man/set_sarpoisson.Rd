@@ -20,4 +20,3 @@ An object of class `c("glm", "lm")`
 \description{
 Build a glm class object from an NLM poisson fit
 }
-

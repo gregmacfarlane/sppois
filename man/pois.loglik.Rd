@@ -19,4 +19,3 @@ A numeric calculation of the model likelihood.
 \description{
 Non-spatial poisson likelihood
 }
-

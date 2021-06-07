@@ -4,7 +4,8 @@
 \name{firmbirth}
 \alias{firmbirth}
 \title{County-level firm births in the United States}
-\format{A data frame with 3078 rows and 39 variables:
+\format{
+A data frame with 3078 rows and 39 variables:
 \describe{
   \item{County}{}
   \item{State}{}
@@ -45,7 +46,8 @@
   \item{metro}{}
   \item{micro}{}
   \item{noncore}{}
-}}
+}
+}
 \source{
 \url{http://dx.doi.org/10.1016/j.regsciurbeco.2010.04.001}
 }
@@ -57,4 +59,3 @@ A dataset containing information on firm birth in multiple sectors by
 counties in the United States
 }
 \keyword{datasets}
-

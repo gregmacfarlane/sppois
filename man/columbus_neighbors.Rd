@@ -4,7 +4,9 @@
 \name{columbus_neighbors}
 \alias{columbus_neighbors}
 \title{Neighbor relationships for zones in Columbus}
-\format{An object of class \code{listw} (inherits from \code{nb}) of length 3.}
+\format{
+An object of class \code{listw} (inherits from \code{nb}) of length 3.
+}
 \source{
 Anselin, Luc. 1988. Spatial econometrics: methods and models.
   Dordrecht: Kluwer Academic, Table 12.1 p. 189.
@@ -19,4 +21,3 @@ A listw containing spatial weights for the observations in \link{columbus_crime}
 This data is obtained using \link[spdep]{oldcol}
 }
 \keyword{datasets}
-

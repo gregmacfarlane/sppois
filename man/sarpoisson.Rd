@@ -59,4 +59,3 @@ Brown, and Florax (2010)}.
 \seealso{
 \code{\link[spdep]{lagsarlm}}
 }
-

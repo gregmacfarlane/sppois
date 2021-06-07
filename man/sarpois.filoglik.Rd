@@ -22,4 +22,3 @@ A numeric calculation of the model likelihood.
 \description{
 Full-information maximum likelihood function for spatial poisson
 }
-
