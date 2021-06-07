@@ -164,11 +164,13 @@ sarpois.filoglik <- function(p, y, X, W){
   rho <- p[1]
   beta <- p[-1]
 
+  # Spatial information matrix
   A <- Matrix::Diagonal(nrow(X)) - rho * W   # (I - rho W)
   A1 <- solve(A)
   axb <- A1 %*% X %*% beta
   mu <- exp(axb)
-  lnL <- y %*% axb - sum(mu)
+
+  lnL <- y %*% axb - sum(mu) - sum(log(factorial(y)))
 
   return(-1 * as.numeric(lnL))
 }
@@ -184,7 +186,7 @@ sarpois.filoglik <- function(p, y, X, W){
 pois.loglik <- function(p, y, X){
   xb <- X %*% p
   mu <- exp(xb)
-  lnL <- y %*% xb - sum(mu)
+  lnL <- y %*% xb - sum(mu) - sum(log(factorial(y)))
 
   return(-1 * as.numeric(lnL))
 }
