@@ -7,6 +7,7 @@
 
 [![Build
 Status](https://travis-ci.com/gregmacfarlane/sppois.svg?branch=master)](https://travis-ci.com/gregmacfarlane/sppois)
+[![R-CMD-check](https://github.com/gregmacfarlane/sppois/workflows/R-CMD-check/badge.svg)](https://github.com/gregmacfarlane/sppois/actions)
 <!-- badges: end -->
 
 The goal of sppois is to implement the two stage estimator for spatial

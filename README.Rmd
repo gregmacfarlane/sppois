@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![Build Status](https://travis-ci.com/gregmacfarlane/sppois.svg?branch=master)](https://travis-ci.com/gregmacfarlane/sppois)
+[![R-CMD-check](https://github.com/gregmacfarlane/sppois/workflows/R-CMD-check/badge.svg)](https://github.com/gregmacfarlane/sppois/actions)
 <!-- badges: end -->
 
 The goal of sppois is to implement the two stage estimator for spatial autoregressive Poisson models proposed by [Lambert et al. (2010)](http://dx.doi.org/10.1016/j.regsciurbeco.2010.04.001)
