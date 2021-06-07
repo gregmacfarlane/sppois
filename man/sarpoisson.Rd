@@ -50,10 +50,10 @@ for Poisson regression models. The estimator was described by
 Brown, and Florax (2010)}.
 }
 \examples{
-  sarpoisson(crime_i ~ income + home_value, data = columbus_crime,
-          method = "non-spatial")
-  sarpoisson(crime_i ~ income + home_value, data = columbus_crime,
-          listw = columbus_neighbors, method = "fiml")
+  summary(sarpoisson(crime_i ~ income + home_value, data = columbus_crime,
+          method = "non-spatial"))
+  summary(sarpoisson(crime_i ~ income + home_value, data = columbus_crime,
+          listw = columbus_neighbors, method = "fiml"))
 
 }
 \seealso{

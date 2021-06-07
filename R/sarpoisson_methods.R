@@ -1,13 +1,5 @@
-#' Summarizing SAR Poisson Models
-#'
-#' `summary` method for class "`sarpoisson`"
-#'
-#' @param object An object of class `sarpoisson`, usually a result of a call to
-#'   \link{sarpoisson}
-#'
 #' @export
-#'
-summary.sarpoisson <- function(object){
+summary.sarpoisson <- function(object, ...){
 
   df.r <- object$df.residual
   aliased <- is.na(stats::coef(object))
@@ -58,7 +50,7 @@ summary.sarpoisson <- function(object){
 }
 
 #' @export
-print.summary.sarpoisson <- function(x, digits = 3){
+print.summary.sarpoisson <- function(x, digits = 3, ...){
 
   # funtion call
   cat("\nCall:", deparse(x$call), sep = "", fill = TRUE)
@@ -86,7 +78,7 @@ print.summary.sarpoisson <- function(x, digits = 3){
 }
 
 #' @export
-print.sarpoisson <- function(x){
+print.sarpoisson <- function(x, ...){
   # funtion call
   cat("\nCall:\n")
   cat(deparse(x$call))
