@@ -45,7 +45,7 @@ glance.sarpoisson <- function(x, ...){
   with(
     summary(x),
     tibble::tibble(
-      logLik = as.numeric(x$nlm_results$value),
+      logLik = as.numeric(x$logLik),
       df.residual = x$df.residual,
       nobs = length(x$residuals)
     )
