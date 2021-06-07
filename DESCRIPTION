@@ -17,3 +17,5 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+URL: https://github.com/gregmacfarlane/sppois
+BugReports: https://github.com/gregmacfarlane/sppois/issues
