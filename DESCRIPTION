@@ -1,15 +1,15 @@
 Package: sppois
 Type: Package
 Title: Spatial Autoregressive Poisson Modeling
-Version: 0.0.1
+Version: 0.0.9000
 Authors@R: person("Greg", "Macfarlane", email = "gregmacfarlane@gmail.com",
   role = c("aut", "cre"))
 Description: An implementation of the two-stage limited
     information maximumum likelihood estimator for spatial autoregressive
     Poisson models proposed by Lambert et al. (2010).
 License: MIT + file LICENSE
-Depends: R (>= 2.10)
-RoxygenNote: 5.0.1.9000
+Depends: R (>= 4.1.0)
+RoxygenNote: 7.1.1
 LazyData: true
 Imports: Matrix,
     spdep
