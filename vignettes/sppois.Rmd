@@ -14,18 +14,32 @@ knitr::opts_chunk$set(
 )
 ```
 
-The `sppois` package exists to provide spatial autoregressive 
+
+
 ```{r setup}
 library(sppois)
+library(modelsummary)
 ```
 
-```{r crime-sppois}
-crime_sppois <- sarpoisson(crime_i ~ income + home_value, data = columbus_crime,
-                           listw = columbus_neighbors, method = "fiml") 
-```
 
-```{r}
-summary(crime_sppois)
-```
+## Data
 
+
+## Non-Spatial
+
+This package contains its own routine for non-spatial Poisson modeling by
+maximum likelihood. These outputs are effectively identical to the 
+results returned by `glm`
+
+
+```{r nonspatial}
+nonspatial <- list(
+  "sppois" = sarpoisson(crime_i ~ income + home_value, data = columbus_crime,
+                        listw = columbus_neighbors, method = "non-spatial") ,
+  "glm" = glm(crime_i ~ income + home_value, data = columbus_crime, 
+              family = "poisson")
+)
+
+modelsummary(nonspatial, fmt = "%.6f")
+```
 
