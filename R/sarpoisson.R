@@ -141,7 +141,7 @@ set_sarpoisson <- function(object, mf, mt){
     information.matrix = solve(object$hessian)
   )
   # Collect output
-  class(me) <- append(class(me), "sarpoisson")
+  class(me) <- "sarpoisson"
 
   return(me)
 }
