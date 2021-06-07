@@ -46,10 +46,10 @@ estimation of spatially-autogressive poisson count models.
 
 ```{r example}
 library(sppois)
-crime_pois   <- sarpoisson(crime_i ~ income + home_value, data = columbus_crime,
-                           listw = columbus_neighbors, method = "non-spatial") 
 crime_sppois <- sarpoisson(crime_i ~ income + home_value, data = columbus_crime,
                            listw = columbus_neighbors, method = "fiml") 
 summary(crime_sppois)
 ```
+
+
 
