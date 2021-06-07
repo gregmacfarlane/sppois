@@ -4,7 +4,8 @@
 #'
 #' @param object An object of class `sarpoisson`, usually a result of a call to
 #'   \link{sarpoisson}
-#' @method summary sarpoisson
+#'
+#' @export
 #'
 summary.sarpoisson <- function(object){
 
@@ -56,6 +57,7 @@ summary.sarpoisson <- function(object){
 
 }
 
+#' @export
 print.summary.sarpoisson <- function(x, digits = 3){
 
   # funtion call
@@ -83,6 +85,7 @@ print.summary.sarpoisson <- function(x, digits = 3){
 
 }
 
+#' @export
 print.sarpoisson <- function(x){
   # funtion call
   cat("\nCall:\n")
