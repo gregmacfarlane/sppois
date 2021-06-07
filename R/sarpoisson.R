@@ -38,10 +38,10 @@
 #' }
 #'
 #' @examples
-#'   sarpoisson(crime_i ~ income + home_value, data = columbus_crime,
-#'           method = "non-spatial")
-#'   sarpoisson(crime_i ~ income + home_value, data = columbus_crime,
-#'           listw = columbus_neighbors, method = "fiml")
+#'   summary(sarpoisson(crime_i ~ income + home_value, data = columbus_crime,
+#'           method = "non-spatial"))
+#'   summary(sarpoisson(crime_i ~ income + home_value, data = columbus_crime,
+#'           listw = columbus_neighbors, method = "fiml"))
 #'
 #' @seealso \code{\link[spdep]{lagsarlm}}
 #'
