@@ -75,29 +75,29 @@ sarpoisson <- function(formula, data = list(), listw = NULL,  method = "liml",
     if(det(W) == 0) # non-invertible matrices have determinant of 0
       warning("Matrix listw is near-singular, results may not be reliable.")
 
-    nlm_results <- stats::nlm(
-      f = sarpois.filoglik,
-      p = c(0, rep(0, ncol(X))),
+    nlm_results <- stats::optim(
+      par = c(0, rep(0, ncol(X))),
+      fn = sarpois.filoglik,
       y = y, X = X, W = W,
       hessian = TRUE, ...
     )
-    names(nlm_results$estimate) <- c("rho", attr(X, "dimnames")[2][[1]])
+    names(nlm_results$par) <- c("rho", attr(X, "dimnames")[2][[1]])
 
-    A <- Matrix::Diagonal(nrow(X)) - nlm_results$estimate[1] * W   # (I - rho W)
+    A <- Matrix::Diagonal(nrow(X)) - nlm_results$par[1] * W   # (I - rho W)
     A1 <- solve(A)
-    axb <- A1 %*% X %*% nlm_results$estimate[-1]
+    axb <- A1 %*% X %*% nlm_results$par[-1]
     nlm_results$fitted.values = exp(axb)
     nlm_results$residuals = y - nlm_results$fitted.values
 
   } else if (method == "non-spatial"){
-    nlm_results <- stats::nlm(
-      f = pois.loglik,
-      p = rep(0, ncol(X)),
+    nlm_results <- stats::optim(
+      par = rep(0, ncol(X)),
+      fn = pois.loglik,
       y = y, X = X,
       hessian = TRUE, ...
     )
-    names(nlm_results$estimate) <- attr(X, "dimnames")[2][[1]]
-    nlm_results$fitted.values = exp(X %*% nlm_results$estimate)
+    names(nlm_results$par) <- attr(X, "dimnames")[2][[1]]
+    nlm_results$fitted.values = exp(X %*% nlm_results$par)
     nlm_results$residuals = y - nlm_results$fitted.values
 
   }
@@ -125,14 +125,17 @@ set_sarpoisson <- function(object, mf, mt){
   y <- model.response(mf, "numeric")
   X <- model.matrix(mt, mf)
 
+  colnames(object$hessian) <- rownames(object$hessian) <- names(object$par)
+
   me <- list(
-    coefficients = object$estimate,
+    coefficients = object$par,
+    model = mf,
     fitted.values = object$fitted.values,
     residuals = object$residuals,
-    df.residual = length(y) - length(object$estimate),
+    df.residual = length(y) - length(object$par),
     df.null = length(y) - 1,
-    logLik = -1 * object$minimum,
-    rank = length(object$estimate),
+    logLik = -1 * object$value,
+    rank = length(object$par),
     call = mf,
     contrasts = attr(X, "contrasts"),
     levels = stats::.getXlevels(mt, mf),

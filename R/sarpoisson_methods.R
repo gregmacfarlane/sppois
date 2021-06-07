@@ -50,14 +50,20 @@ summary.sarpoisson <- function(object, ...){
 }
 
 #' @export
+vcov.sarpoisson <- function(object){
+  object$information.matrix
+}
+
+
+#' @export
 print.summary.sarpoisson <- function(x, digits = 3, ...){
 
   # funtion call
   cat("\nCall:", deparse(x$call), sep = "", fill = TRUE)
 
   # optimization warning
-  if(x$object$nlm_results$code > 2){
-    warning("nlm did not fully succeed, warning code ", x$object$nlm_results$code)
+  if(!is.null(x$object$nlm_results$message)){
+    warning(x$object$nlm_results$message)
   }
 
   # residuals
@@ -87,3 +93,4 @@ print.sarpoisson <- function(x, ...){
   print(x$coefficients)
 
 }
+
