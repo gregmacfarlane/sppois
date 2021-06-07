@@ -66,7 +66,7 @@ sarpoisson <- function(formula, data = list(), listw = NULL,  method = "liml",
 
   mt <- attr(mf, "terms")
   y <- stats::model.response(mf, "numeric")
-  X <- stats::model.matrix(mt, mf, stats::contrasts)
+  X <- stats::model.matrix(mt, mf)
 
 
   # Estimate model coefficients -----------
@@ -123,7 +123,7 @@ sarpoisson <- function(formula, data = list(), listw = NULL,  method = "liml",
 set_sarpoisson <- function(object, mf, mt){
 
   y <- model.response(mf, "numeric")
-  X <- model.matrix(mt, mf, contrasts)
+  X <- model.matrix(mt, mf)
 
   me <- list(
     coefficients = object$estimate,
